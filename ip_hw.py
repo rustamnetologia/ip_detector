@@ -8,12 +8,11 @@ from dotenv import load_dotenv
 load_dotenv()
 yandex_token = os.getenv('YANDEX_DISK_TOKEN')
 if not yandex_token:
-    print("❌ Токен не найден в .env файле!")
-    print("Создайте файл .env с содержимым:")
-    print("YANDEX_DISK_TOKEN=ваш_токен")
-    exit(1)
+    print("Токен не найден в .env !")
+    
+    
 else:
-    print(f"✅ Токен загружен: {yandex_token[:10]}...")
+    print(f"Токен загружен: {yandex_token[:10]}...")
 
 
 class IPAdress:
@@ -71,20 +70,20 @@ class YandexDisk:
             'Authorization': f'OAuth {self.token}',
             'Content-Type': 'application/json'
         }
-        print("✅ Яндекс.Диск инициализирован")
+        print(" Яндекс.Диск инициализирован")
 
     def create_folder(self, folder_name):
         url = self.base_url + 'disk/resources'
         params = {'path': folder_name}
         response = requests.put(url, params=params, headers=self.headers)
         if response.status_code == 201:
-            print(f'✅ Папка "{folder_name}" создана')
+            print(f' Папка "{folder_name}" создана')
             return True
         elif response.status_code == 409:
-            print(f'⚠️ Папка "{folder_name}" уже существует')
+            print(f'Папка "{folder_name}" уже существует')
             return True
         else:
-            print(f'❌ Ошибка создания папки: {response.status_code}')
+            print(f'Ошибка создания папки: {response.status_code}')
             return False
 
     def save_file_to_json(self, data, file_name):
@@ -92,7 +91,7 @@ class YandexDisk:
             file_name = f'{file_name}.json'
         with open(file_name, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f'✅ Файл "{file_name}" создан локально')
+        print(f' Файл "{file_name}" создан локально')
         return file_name
 
     def delete_file(self, file_name):
@@ -103,10 +102,10 @@ class YandexDisk:
 
         if os.path.exists(full_path):
             os.remove(full_path)
-            print(f'🗑️ Файл "{file_name}" удален')
+            print(f' Файл "{file_name}" удален')
             return True
         else:
-            print(f'⚠️ Файл "{file_name}" не найден')
+            print(f' Файл "{file_name}" не найден')
             return False
 
     def upload_file_on_yandex_disk(self, folder_name, file_name, data):
