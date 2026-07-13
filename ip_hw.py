@@ -125,11 +125,11 @@ class YandexDisk:
         response = requests.get(url, params=params, headers=self.headers)
 
         if response.status_code != 200:
-            print('❌ Ошибка получения ссылки на загрузку')
+            print('Ошибка получения ссылки на загрузку')
             return False
 
         upload_url = response.json()['href']
-        print('✅ Ссылка на загрузку получена!')
+        print('Ссылка на загрузку получена!')
 
         json_data = json.dumps(data, ensure_ascii=False, indent=2)
         upload_response = requests.put(
@@ -139,11 +139,11 @@ class YandexDisk:
         )
 
         if upload_response.status_code == 201:
-            print(f"✅ Файл '{remote_path}' загружен на Яндекс.Диск!")
+            print(f"Файл '{remote_path}' загружен на Яндекс.Диск!")
             self.delete_file(file_name)
             return True
         else:
-            print(f'❌ Ошибка загрузки: {upload_response.status_code}')
+            print(f'Ошибка загрузки: {upload_response.status_code}')
             return False
 
 
@@ -158,7 +158,7 @@ def main():
 
     data = my_ip.get_info_dict()
     if not data:
-        print("❌ Не удалось получить данные об IP")
+        print("Не удалось получить данные об IP")
         return
 
     my_ip.show_info()
@@ -173,11 +173,11 @@ def main():
 
     if result:
         print("\n" + "=" * 60)
-        print("✅ Программа завершена успешно!")
-        print(f"📁 Файл загружен в папку '{folder_name}' на Яндекс.Диске")
+        print("Программа завершена успешно!")
+        print(f"Файл загружен в папку '{folder_name}' на Яндекс.Диске")
         print("=" * 60 + "\n")
     else:
-        print("\n❌ Ошибка при загрузке на Яндекс.Диск")
+        print("\nОшибка при загрузке на Яндекс.Диск")
 
 
 if __name__ == '__main__':
